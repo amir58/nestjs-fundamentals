@@ -10,36 +10,30 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserEntity } from './user.entity';
+import { UserService } from './users.service';
 
 @Controller('users')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
+
   private users: UserEntity[] = [];
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    console.table(createUserDto);
-
-    const user: UserEntity = {
-      id: uuid(),
-      ...createUserDto,
-    };
-
-    this.users.push(user);
-    return user;
+    return this.userService.createUser(createUserDto);
   }
 
   @Get()
   find() {
-    return this.users;
+    return this.userService.findUsers();
   }
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return this.users.find((user) => user.id === id);
+    return this.userService.findUser(id);
   }
 
   @Patch(':id')
@@ -47,17 +41,13 @@ export class UserController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    const index = this.users.findIndex((user) => user.id === id);
-
-    this.users[index] = { ...this.users[index], ...updateUserDto };
-
-    return this.users[index];
+    return this.userService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   //   @HttpCode(204)
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseUUIDPipe) id: string) {
-    this.users = this.users.filter((user) => user.id !== id);
+    this.userService.deleteUser(id);
   }
 }
