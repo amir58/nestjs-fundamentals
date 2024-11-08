@@ -1,28 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserResponseDto } from './dtos/user.response.dto';
 import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService {
   private users: UserEntity[] = [];
 
-  findUsers(): UserEntity[] {
-    return this.users;
+  findUsers(): UserResponseDto[] {
+    return this.users.map((user) => new UserResponseDto(user));
   }
 
-  findUser(id: string): UserEntity {
-    return this.users.find((user) => user.id === id);
+  findUser(id: string): UserResponseDto {
+    return new UserResponseDto(this.users.find((user) => user.id === id));
   }
 
-  createUser(createUserDto: CreateUserDto): UserEntity {
+  createUser(createUserDto: CreateUserDto): UserResponseDto {
     const user: UserEntity = {
       id: uuid(),
       ...createUserDto,
     };
 
     this.users.push(user);
-    return user;
+    return new UserResponseDto(user);
   }
 
   updateUser(id: string, updateUserDto: UpdateUserDto): UserEntity {
@@ -36,7 +38,4 @@ export class UserService {
   deleteUser(id: string): void {
     this.users = this.users.filter((user) => user.id !== id);
   }
-}
-function uuid(): string {
-  throw new Error('Function not implemented.');
 }

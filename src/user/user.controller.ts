@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { UserResponseDto } from './dtos/user.response.dto';
 import { UserEntity } from './user.entity';
 import { UserService } from './users.service';
 
@@ -22,12 +23,12 @@ export class UserController {
   private users: UserEntity[] = [];
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): UserResponseDto {
     return this.userService.createUser(createUserDto);
   }
 
   @Get()
-  find() {
+  find(): UserResponseDto[] {
     return this.userService.findUsers();
   }
 
