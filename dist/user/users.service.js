@@ -8,23 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
+const uuid_1 = require("uuid");
+const user_response_dto_1 = require("./dtos/user.response.dto");
 let UserService = class UserService {
     constructor() {
         this.users = [];
     }
     findUsers() {
-        return this.users;
+        return this.users.map((user) => new user_response_dto_1.UserResponseDto(user));
     }
     findUser(id) {
-        return this.users.find((user) => user.id === id);
+        return new user_response_dto_1.UserResponseDto(this.users.find((user) => user.id === id));
     }
     createUser(createUserDto) {
         const user = {
-            id: uuid(),
+            id: (0, uuid_1.v4)(),
             ...createUserDto,
         };
         this.users.push(user);
-        return user;
+        return new user_response_dto_1.UserResponseDto(user);
     }
     updateUser(id, updateUserDto) {
         const index = this.users.findIndex((user) => user.id === id);
@@ -39,7 +41,4 @@ exports.UserService = UserService;
 exports.UserService = UserService = __decorate([
     (0, common_1.Injectable)()
 ], UserService);
-function uuid() {
-    throw new Error('Function not implemented.');
-}
 //# sourceMappingURL=users.service.js.map

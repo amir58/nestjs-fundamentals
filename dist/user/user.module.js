@@ -6,17 +6,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModule = void 0;
+exports.UserModule = exports.MockUserService = void 0;
 const common_1 = require("@nestjs/common");
 const user_controller_1 = require("./user.controller");
 const users_service_1 = require("./users.service");
+class MockUserService {
+    createUser() {
+        return 'User created';
+    }
+    findUsers() {
+        return [
+            {
+                id: '123',
+                name: 'Amir',
+                email: 'test@test.com',
+                country: 'Egypt',
+            },
+        ];
+    }
+    findUser() {
+        return {
+            id: '123',
+            name: 'Amir',
+            email: 'test@test.com',
+            country: 'Egypt',
+        };
+    }
+    updateUser() {
+        return 'User updated';
+    }
+    deleteUser() {
+        return 'User deleted';
+    }
+}
+exports.MockUserService = MockUserService;
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
         controllers: [user_controller_1.UserController],
-        providers: [users_service_1.UserService],
+        providers: [
+            users_service_1.UserService,
+        ],
     })
 ], UserModule);
 //# sourceMappingURL=user.module.js.map
