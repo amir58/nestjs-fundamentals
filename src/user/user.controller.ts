@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -28,7 +29,10 @@ export class UserController {
   }
 
   @Get()
-  find(): UserResponseDto[] {
+  async find(@Req() request: Request): Promise<UserResponseDto[]> {
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    console.log(request.body);
+
     return this.userService.findUsers();
   }
 

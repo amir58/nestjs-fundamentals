@@ -8,7 +8,7 @@ export declare class UserController {
     constructor(userService: UserService);
     private users;
     create(createUserDto: CreateUserDto): UserResponseDto;
-    find(): UserResponseDto[];
+    find(request: Request): Promise<UserResponseDto[]>;
     findOne(id: string): UserResponseDto;
     update(id: string, updateUserDto: UpdateUserDto): UserEntity;
     delete(id: string): void;

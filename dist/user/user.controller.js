@@ -26,7 +26,9 @@ let UserController = class UserController {
     create(createUserDto) {
         return this.userService.createUser(createUserDto);
     }
-    find() {
+    async find(request) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        console.log(request.body);
         return this.userService.findUsers();
     }
     findOne(id) {
@@ -49,9 +51,10 @@ __decorate([
 ], UserController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Array)
+    __metadata("design:paramtypes", [Request]),
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "find", null);
 __decorate([
     (0, common_1.Get)(':id'),
