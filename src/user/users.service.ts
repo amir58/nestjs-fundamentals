@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { CustomHttpException } from 'src/common/exceptions/custom-http.exception';
 import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -14,7 +15,13 @@ export class UserService {
   }
 
   findUser(id: string): UserResponseDto {
-    return new UserResponseDto(this.users.find((user) => user.id === id));
+    const user = this.users.find((user) => user.id === id);
+
+    if (!user) {
+      throw new CustomHttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return new UserResponseDto(user);
   }
 
   createUser(createUserDto: CreateUserDto): UserResponseDto {

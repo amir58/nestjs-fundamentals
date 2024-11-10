@@ -13,12 +13,14 @@ export class TimeoutIntercepetor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     // Logic on current request, before method execution
     // console.log('Before, Request intercepting...');
-    const ctx = context.switchToHttp();
-    const request = ctx.getRequest<Request>();
-    request.body = {
-      ...request.body,
-      timeout: 30000,
-    };
+
+    // const ctx = context.switchToHttp();
+    // const request = ctx.getRequest<Request>();
+
+    // request.body = {
+    //   ...request.body,
+    //   timeout: 30000,
+    // };
 
     return next.handle().pipe(
       timeout(30000),
