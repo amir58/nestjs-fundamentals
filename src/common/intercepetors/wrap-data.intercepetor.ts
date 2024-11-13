@@ -16,6 +16,7 @@ export class WrapDataInterceptor implements NestInterceptor {
       map((data) => {
         // console.log('After, Response intercepting...');
         return {
+          copyright: 'Copyright @2024 https://eshop.amirmohammed.com',
           message: 'Request successful',
           status: 'success',
           data,

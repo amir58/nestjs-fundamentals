@@ -23,6 +23,7 @@ export class CustomExceptionFilter implements ExceptionFilter {
         : (exceptionResponse as object);
 
     response.status(status).json({
+      copyright: 'Copyright @2024 https://eshop.amirmohammed.com',
       ...errorResponse,
       statusCode: status,
       timestamp: new Date().toISOString(),

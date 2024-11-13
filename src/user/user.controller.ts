@@ -10,6 +10,7 @@ import {
   Patch,
   Post,
   Req,
+  SetMetadata,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -28,6 +29,7 @@ export class UserController {
     return this.userService.createUser(createUserDto);
   }
 
+  @SetMetadata('isPublic', true)
   @Get()
   async find(@Req() request: Request): Promise<UserResponseDto[]> {
     await new Promise((resolve) => setTimeout(resolve, 100));
