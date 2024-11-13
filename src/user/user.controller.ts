@@ -12,6 +12,7 @@ import {
   Req,
   SetMetadata,
 } from '@nestjs/common';
+import { Public } from 'src/common/decorators/public.decorators';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserResponseDto } from './dtos/user.response.dto';
@@ -38,6 +39,7 @@ export class UserController {
     return this.userService.findUsers();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.findUser(id);
