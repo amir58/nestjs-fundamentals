@@ -28,7 +28,7 @@ import { UserModule } from './user/user.module';
           ? '.production.env'
           : process.env.NODE_ENV === 'staging'
             ? '.staging.env'
-            : '.development.env'
+            : '.development.env',
     }),
 
     // TypeOrmModule.forRootAsync({

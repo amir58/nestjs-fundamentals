@@ -36,7 +36,7 @@ export class UserController {
   @Get()
   async find(@Req() request: Request): Promise<UserResponseDto[]> {
     await new Promise((resolve) => setTimeout(resolve, 100));
-
+    
     return this.userService.findUsers();
   }
 

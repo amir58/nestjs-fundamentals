@@ -24,6 +24,6 @@ async function bootstrap() {
   app.useGlobalFilters(new CustomExceptionFilter());
   // app.useGlobalGuards(new AuthGuard());
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 8001);
 }
 bootstrap();
