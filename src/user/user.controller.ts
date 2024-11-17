@@ -21,7 +21,9 @@ import { UserService } from './users.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+    console.log(process.env.DATABASE_HOST);
+  }
 
   private users: UserEntity[] = [];
 
@@ -34,7 +36,6 @@ export class UserController {
   @Get()
   async find(@Req() request: Request): Promise<UserResponseDto[]> {
     await new Promise((resolve) => setTimeout(resolve, 100));
-    console.log(request.body);
 
     return this.userService.findUsers();
   }
